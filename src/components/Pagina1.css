@@ -1,0 +1,43 @@
+/* Fondo */
+.pagina1 {
+    background-image: url('../media/fondo-budin3.jpeg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    width: 100vw;      
+    position: fixed;    
+    top: 60px;
+    left: 0;
+    
+}
+
+/* Filtro oscuro */
+.pagina1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.eslogan {
+    font-family: "Dosis", sans-serif;
+    font-weight: 800;
+    color: white;
+    font-size: 3rem;
+    text-align: start;
+    position: relative;
+    z-index: 2;
+    width: 26%;
+    margin-left: 5rem;
+    text-shadow: 10px 4px 15px rgba(0,0,0,1); /* Sombra negra suave */
+}
+
+span {
+    color: #e37b00;
+}
+

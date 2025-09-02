@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Norican&display=swap');
+
+.navbar {
+    /*Color fondo y letra*/
+    background-color: #e37b00;
+    color: #681104;
+
+    /*Posición*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    /*Flex de elementos del Navbar*/
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    /*Fuente de elementos li*/
+    font-family: "Dosis", sans-serif;
+    font-weight: 600;
+
+    /*Color de texto*/
+    color: #681104;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    /*Fuente de elementos li*/
+    font-family: "Dosis", sans-serif;
+    font-weight: 600;
+
+    /*Color de texto*/
+    color: #000000;
+    text-decoration: none;
+}
+
+.navbar ul {
+    /*Ul sin puntos*/
+    list-style: none;
+
+    /*Flex de elementos de la lista*/
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+
+    /*Margenes*/
+    margin-right: 1rem;
+}
+
+.cart {
+    /*Margenes*/
+    margin-right: 1rem;
+    padding-left: 1rem;
+
+    /*Linea de separación*/
+    border-left: 1px solid #681104;
+}
+
+.cart-count {
+    color: #681104;
+    font-weight: 700;
+}
+
+.cart-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.logo-budin {
+    /*Tamaño imagen*/
+    width: 4rem; 
+
+    /*Margenes*/
+    margin-right: 0rem; 
+    margin-left: 1rem; 
+}
+
+.titulo-empresa {
+    /*Fuente de titulo*/
+    font-family: "Dosis", sans-serif;
+    font-weight: 800;
+    font-size: 1.7rem;
+
+    /*Margenes*/
+    margin-right: auto;
+}
