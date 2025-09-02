@@ -1,9 +1,7 @@
 import carrito from '../media/logo-carrito.png';
 
 export default function CartWidget() {
-
   const count = 0;
-   
   return (
     <div className="cart">
           <a href="" className='cart-link'>
