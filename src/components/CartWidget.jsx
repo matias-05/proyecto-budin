@@ -1,4 +1,5 @@
 import carrito from '../media/logo-carrito.png';
+import './CartWidget.css';
 
 export default function CartWidget() {
   const count = 0;

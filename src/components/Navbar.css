@@ -49,27 +49,6 @@
     margin-right: 1rem;
 }
 
-.cart {
-    /*Margenes*/
-    margin-right: 1rem;
-    padding-left: 1rem;
-
-    /*Linea de separación*/
-    border-left: 1px solid #681104;
-}
-
-.cart-count {
-    color: #681104;
-    font-weight: 700;
-}
-
-.cart-link {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.3rem;
-}
-
 .logo-budin {
     /*Tamaño imagen*/
     width: 4rem; 
