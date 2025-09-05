@@ -1,5 +1,5 @@
 /* Fondo */
-.pagina1 {
+.ItemListConteiner {
     background-image: url('../media/fondo-budin3.jpeg');
     background-size: cover;
     background-position: center;
@@ -12,7 +12,7 @@
 }
 
 /* Filtro oscuro */
-.pagina1::before {
+.ItemListConteiner::before {
     content: "";
     position: absolute;
     top: 0;
