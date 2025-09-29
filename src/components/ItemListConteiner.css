@@ -32,12 +32,41 @@
     text-align: start;
     position: relative;
     z-index: 2;
-    width: 26%;
+    width: 30%;
     margin-left: 5rem;
-    text-shadow: 10px 4px 15px rgba(0,0,0,1); /* Sombra negra suave */
+    margin-top: 3rem;
+    text-shadow: 10px 4px 15px rgba(0,0,0,1); 
 }
 
 span {
     color: #e37b00;
+}
+
+
+/* Estilos para pantallas pequeñas */
+@media (min-width: 360px) and (max-width: 768px) {
+
+    .ItemListConteiner {
+        background-image: url('../media/fondo-budin3.jpeg');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        width: 100vw;      
+        position: fixed;    
+        top: 60px;
+        left: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .eslogan {
+        margin-top: 2rem;
+        margin-left: 1rem;
+        text-align: center;
+        font-size: 2rem;
+        width: 100%;
+    }
+
 }
 

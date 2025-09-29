@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Norican&display=swap');
+@import "tailwindcss";
+
 
 .navbar {
     /*Color fondo y letra*/
@@ -24,24 +26,18 @@
     /*Color de texto*/
     color: #681104;
     text-decoration: none;
+    transition: all .3s ease;
 }
 
 .navbar a:hover {
-    /*Fuente de elementos li*/
-    font-family: "Dosis", sans-serif;
-    font-weight: 600;
-
-    /*Color de texto*/
     color: #000000;
     text-decoration: none;
+    font-size: 1.1rem;
+    transition: all .3s ease;
 }
 
 .navbar ul {
-    /*Ul sin puntos*/
-    list-style: none;
-
     /*Flex de elementos de la lista*/
-    display: flex;
     justify-content: end;
     gap: 2rem;
 
@@ -52,10 +48,6 @@
 .logo-budin {
     /*Tamaño imagen*/
     width: 4rem; 
-
-    /*Margenes*/
-    margin-right: 0rem; 
-    margin-left: 1rem; 
 }
 
 .titulo-empresa {
@@ -66,4 +58,44 @@
 
     /*Margenes*/
     margin-right: auto;
+}
+
+@media (min-width: 360px) and (max-width: 768px) {
+
+    .navbar {
+        z-index: 3;
+    }
+
+    .titulo-empresa {
+        font-size: 1.2rem;
+    }
+
+    .boton-hamburguesa {
+        background-color: #e37b00;
+    }
+
+    .mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #e37b00;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+
+        /* Animación slide down */
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        z-index: 2;
+    }
+
+    .mobile-menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+        background-color: #e37b00;
+    }
+    
 }

@@ -28,3 +28,17 @@
     transform: translateY(10px);
     transition: 100ms;
 }
+
+@media (min-width: 360px) and (max-width: 768px) {
+    .boton-compra {
+        font-size: 1.2rem;
+        position: absolute  ;
+        top: 30rem;
+        left: auto;
+        right: auto;
+    }
+
+    .boton-compra:active {
+        letter-spacing: 1px;
+    }
+}
