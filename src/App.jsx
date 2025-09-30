@@ -1,15 +1,16 @@
 import Navbar from './components/Navbar.jsx';
-import ItemListConteiner from './components/ItemListConteiner.jsx';
-
+import Inicio from './components/Inicio.jsx';
 import './App.css'
+import ItemListConteiner from './components/ItemListConteiner.jsx';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <ItemListConteiner greeting={
+      <Inicio greeting={
         <>Una  <span>experiencia deliciosa</span> comienza acá</>
       }/>
+      <ItemListConteiner />
     </div>
   );
 }

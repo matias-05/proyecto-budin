@@ -10,11 +10,14 @@
     font-size: 1.5rem;
     transition: all 0.5s ease;
     position: absolute; 
-    top: 7rem;             
-    right: 2rem;           
+    top: 10rem;             
+    right: 7rem;           
     z-index: 2;
 }
-
+a {
+    text-decoration: none;
+    color: white;
+}
 .boton-compra:hover {
     letter-spacing: 3px;
     background-color: #e37b00;

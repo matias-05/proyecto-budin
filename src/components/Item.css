@@ -1,0 +1,63 @@
+.item-card{
+    margin: 2rem;
+    background-color: #681104;
+    width: 12rem;
+    height: 28rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    font-family: "Dosis", sans-serif;
+    font-weight: 600;
+    border-radius: 1rem;
+    box-shadow: 0 4px 50px rgb(0, 0, 0);
+}
+
+.item-card h3{
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.item-card p{
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.item-card img{
+    height: 12rem;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.item-card button{
+    background-color: #e37b00;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.item-card button:hover{
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+.item-card button:active{
+    transform: scale(0.95);
+    transition: all 0.3s ease-in-out;
+}
+
+.checkbox-label{
+    color: white;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem  ;
+}
