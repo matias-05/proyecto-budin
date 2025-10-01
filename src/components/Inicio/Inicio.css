@@ -1,6 +1,6 @@
 /* Fondo */
 .inicio {
-    background-image: url('../media/fondo-budin3.jpeg');
+    background-image: url('../../media/fondo-budin3.jpeg');
     background-size: cover;
     background-position: center;
     min-height: 100vh;  

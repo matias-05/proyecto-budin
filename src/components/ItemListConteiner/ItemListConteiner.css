@@ -1,6 +1,7 @@
 .ItemListConteiner {
     height: 100vh;
     background: #E37B00;
+    width: 100vw;
 }
 
 h2 {
@@ -17,4 +18,5 @@ h2 {
     flex-wrap: wrap;
     justify-content: center;
     padding: 2rem;
+    gap: 4rem;
 }

@@ -5,7 +5,7 @@ export default function Inicio(props) {
   return (
     <section className="inicio" id='inicio'>
         <h2 className='eslogan'>{props.greeting}</h2>
-        <BtnCompra greeting="Comprá Ya!" />
+        <BtnCompra greeting="Ver Productos" />
     </section>
 
   );
