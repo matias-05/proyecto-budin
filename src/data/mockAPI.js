@@ -5,3 +5,29 @@ export default function getProductos() {
         setTimeout(() => resolve(productos), 1000);
     });
 }
+
+export function getProductoById(id) {
+    return new Promise((resolve, reject) => {
+        const producto = productos.find(p => p.id === Number(id));
+        setTimeout(() => {
+            if (producto) {
+                resolve(producto);
+            } else {
+                reject(new Error('Producto no encontrado'));
+            }
+        }, 1000);
+    });
+}
+
+export function getProductosByCategory(categParam) {
+    return new Promise((resolve, reject) => {
+        const producto = productos.filter(p => p.categoria === categParam);
+        setTimeout(() => {
+            if (producto) {
+                resolve(producto);
+            } else {
+                reject(new Error('Producto no encontrado'));
+            }
+        }, 1000);
+    });
+}

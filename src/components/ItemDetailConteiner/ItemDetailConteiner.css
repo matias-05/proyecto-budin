@@ -1,0 +1,37 @@
+.ItemDetailConteiner {
+    height: 100vh;
+    background: #E37B00;
+    width: 100vw;
+}
+
+.detalle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 4rem;
+    margin-top: 4rem;
+}
+
+.detalle-card {
+    background-color: #681104;
+    margin-top: 5rem;
+    width: 50rem;
+    height: 40rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    font-family: "Dosis", sans-serif;
+    font-weight: 600;
+    border-radius: 1rem;
+    box-shadow: 0 4px 50px rgb(0, 0, 0);
+}
+
+.detalle-imagen {
+    width: 20rem;
+    height: 25rem;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 50px rgb(0, 0, 0);
+}
