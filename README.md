@@ -1,7 +1,16 @@
 
 # Rincón del Budin
 
-Proyecto para un emprendimiento de budines en la ciudad de Paraná.
+Proyecto web para un emprendimiento de budines en la ciudad de Paraná.
+
+![Portada del proyecto]()
+
+## Tecnologías utilizadas
+- ⚛️ **React 19**
+- ⚡ **Vite 7**
+- 🎨 **Tailwind CSS 4**
+- 🔥 **Firebase**
+- 🧭 **React Router**
 
 ## Prueba el proyecto !
 
@@ -10,79 +19,23 @@ Instrucciones a seguir para tener una copia del proyecto en tu pc para proposito
 ### Requisitos previos
 
 Herramientas que necesitas antes de instalar el programa 
-- [Node.js](https://www.example.com)
+- [Node.js] (nodejs.org)
 
-### Installing
+### Instalación
 
-A step by step series of examples that tell you how to get a development
-environment running
+Paso a paso para instalar el proyecto en tu computadora.
 
-Say what the step will be
+1- Descargar y entrar a la carpeta del proyecto
 
-    Give the example
+    git clone https://github.com/matias-05/proyecto-budin.git
+    cd proyecto-budin
 
-And repeat
+2- Descargar dependencias
 
-    until finished
+    npm install 
 
-End with an example of getting some data out of the system or using it
-for a little demo
+3- Correr proyecto
 
-## Running the tests
+    npm run dev
 
-Explain how to run the automated tests for this system
 
-### Sample Tests
-
-Explain what these tests test and why
-
-    Give an example
-
-### Style test
-
-Checks if the best practices and the right coding style has been used.
-
-    Give an example
-
-## Deployment
-
-Add additional notes to deploy this on a live system
-
-## Built With
-
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-    for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose
-    the license
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
-
-## Authors
-
-  - **Billie Thompson** - *Provided README Template* -
-    [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
-
-## License
-
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md)
-Creative Commons License - see the [LICENSE.md](LICENSE.md) file for
-details
-
-## Acknowledgments
-
-  - Hat tip to anyone whose code is used
-  - Inspiration
-  - etc
