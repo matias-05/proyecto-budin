@@ -2,6 +2,7 @@ import './FormCheckout.css';
 import { useState } from 'react';
 
 export default function FormCheckout(props) {
+    
     const [formData, setFormData] = useState({username: '', email: '', phone: ''});
 
     function handleInputChange(event) {

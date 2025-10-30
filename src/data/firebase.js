@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { collection, doc, getDocs, getFirestore, getDoc, query, where, addDoc } from "firebase/firestore";
 import productosData from "./productos.js";
-
+ 
 const firebaseConfig = {
   apiKey: "AIzaSyAIcJJvGTRHdKQGxnxABkp6VLQbzxRpIqs",
   authDomain: "rincon-del-budin.firebaseapp.com",
@@ -33,11 +33,8 @@ export async function getProductoById(id) {
 
 export async function getProductosByCategory(categParam) {
     const productosRef = collection(db, "products")
-
     const q = query(productosRef, where("categoria", "==", categParam));
-
     const productosSnapshot = await getDocs(q)
-
     const productosList = productosSnapshot.docs.map(doc => {
         return {
             id: doc.id, ...doc.data()

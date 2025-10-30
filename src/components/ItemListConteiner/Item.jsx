@@ -4,6 +4,7 @@ import { cartContext } from '../../context/cartContext';
 import './Item.css'
 
 export default function Item({ id, title, img, precios, prod }) {
+
   const [glaseado, setGlaseado] = useState(false);
   const [chips, setChips] = useState(false);
   const [nueces, setNueces] = useState(false);
@@ -95,7 +96,6 @@ export default function Item({ id, title, img, precios, prod }) {
       <Link to={`/detalle/${id}`}>
         <button className='detalle-btn'>Ver detalle</button>
       </Link>
-      
     </div>
   );
 }

@@ -4,14 +4,18 @@ import { getProductoById } from '../../data/firebase'
 import './ItemDetailConteiner.css';
 
 export default function ItemDetailConteiner() {
+  
   const { id } = useParams();
   const [producto, setProducto] = useState({ loading: true });
+
   useEffect(() => {
     getProductoById(id).then(prod => setProducto(prod));
   }, []);
+  
   if (producto.loading === true) {
     return <h2>Cargando...</h2>;
   }
+
   return (
     <section className="ItemDetailConteiner">
       <div className='detalle'>

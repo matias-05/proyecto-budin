@@ -11,7 +11,6 @@ export function CartProvider({children}) {
     }
 
     function addItem(newItem) {
-
         const quantityCount = 1;
         const newCart = structuredClone(cartItems)
         const isInCart = cartItems.some(item => item.id === newItem.id && item.precioUnidad === newItem.precioUnidad)

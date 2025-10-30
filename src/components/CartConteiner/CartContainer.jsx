@@ -5,6 +5,7 @@ import './CartContainer.css';
 import FormCheckout from "./FormCheckout";
 
 export default function CartContainer() {
+    
     const {cartItems, removeItem, totalPrice, clearCart} = useContext(cartContext);
     const [newOrderCreated, setNewOrderCreated] = useState(false);
 

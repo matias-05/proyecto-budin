@@ -7,6 +7,5 @@ export default function Inicio(props) {
         <h2 className='eslogan'>{props.greeting}</h2>
         <BtnCompra greeting="Ver Productos" />
     </section>
-
   );
 }
