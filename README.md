@@ -3,7 +3,7 @@
 
 Proyecto web para un emprendimiento de budines en la ciudad de Paraná.
 
-<img src="/public/Imagenes-readme/inicio.pnggit ">
+<img src="/public/Imagenes-readme/inicio.png">
 
 ## Tecnologías utilizadas
 - ⚛️ **React 19**
@@ -19,7 +19,7 @@ Instrucciones a seguir para tener una copia del proyecto en tu pc para proposito
 ### Requisitos previos
 
 Herramientas que necesitas antes de instalar el programa 
-- [Node.js] (nodejs.org)
+- [Node.js] (<a>nodejs.org</a>)
 
 ### Instalación
 
