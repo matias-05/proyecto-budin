@@ -3,6 +3,8 @@
 
 Proyecto web para un emprendimiento de budines en la ciudad de Paraná.
 
+<img src="/public/Imagenes-readme/inicio.png">
+
 ![Portada del proyecto]()
 
 ## Tecnologías utilizadas
