@@ -19,7 +19,7 @@ Instrucciones a seguir para tener una copia del proyecto en tu pc para proposito
 ### Requisitos previos
 
 Herramientas que necesitas antes de instalar el programa 
-- [Node.js] (<a>nodejs.org</a>)
+- [Node.js] (nodejs.org)
 
 ### Instalación
 
