@@ -3,12 +3,12 @@ import { collection, doc, getDocs, getFirestore, getDoc, query, where, addDoc } 
 import productosData from "./productos.js";
  
 const firebaseConfig = {
-  apiKey: "AIzaSyAIcJJvGTRHdKQGxnxABkp6VLQbzxRpIqs",
-  authDomain: "rincon-del-budin.firebaseapp.com",
-  projectId: "rincon-del-budin",
-  storageBucket: "rincon-del-budin.firebasestorage.app",
-  messagingSenderId: "480238539923",
-  appId: "1:480238539923:web:29b770355118ceba78e966"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
