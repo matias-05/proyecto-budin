@@ -1,7 +1,6 @@
 import './ItemListConteiner.css'
-import getProductos from '../../data/mockAPI.js'
+import { getProductos, getProductosByCategory } from '../../data/firebase.js'
 import Item from './Item.jsx';
-import { getProductosByCategory } from '../../data/mockAPI.js'
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
@@ -10,7 +9,7 @@ export default function ItemListConteiner() {
   const { categoria } = useParams();
 
   useEffect(() => {
-    if (categoria !== undefined) {
+    if (categoria) {
       getProductosByCategory(categoria)
         .then(res => setProductos(res))
         .catch(err => alert("Error" + err));
@@ -30,7 +29,7 @@ export default function ItemListConteiner() {
       </ul>
       <div className="item-list">
         {productos.map(item => (
-          <Item key={item.id} id={item.id} title={item.nombre} img={item.imagen} precios={item.precios} />
+          <Item key={item.id} id={item.id} title={item.nombre} img={item.imagen} precios={item.precios} prod={item} />
         ))}
       </div>
     </section>

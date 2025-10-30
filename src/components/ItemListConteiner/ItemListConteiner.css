@@ -2,6 +2,7 @@
     height: 100vh;
     background: #E37B00;
     width: 100vw;
+    overflow-y: auto;
 }
 
 h2 {

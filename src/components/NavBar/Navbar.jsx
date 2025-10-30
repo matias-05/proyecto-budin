@@ -37,8 +37,10 @@ export default function Navbar() {
             <li><Link to="/quienes-somos" onClick={() => setOpen(false)}>Quiénes somos</Link></li>
           </ul>
         </div>
-       
-        <CartWidget />
+
+        <Link to="/carrito">
+          <CartWidget />
+        </Link>
       </nav>
     </header>
   );

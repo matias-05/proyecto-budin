@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router';
+import { cartContext } from '../../context/cartContext';
 import './Item.css'
 
-export default function Item({ id, title, img, precios }) {
+export default function Item({ id, title, img, precios, prod }) {
   const [glaseado, setGlaseado] = useState(false);
   const [chips, setChips] = useState(false);
   const [nueces, setNueces] = useState(false);
   const [peso, setPeso] = useState("500gr");
-
-  // Definir los costos adicionales basados en el peso
+  const {addItem} = useContext(cartContext);
+  
   let extraChips = 0;
   if (peso === "250gr") extraChips = 610;
   else if (peso === "300gr") extraChips = 700;
@@ -30,13 +31,20 @@ export default function Item({ id, title, img, precios }) {
       else if (peso === "500gr") extraGlaseado = 900;
     }
 
-
-  // Calcular el precio total
-  const precioTotal =
+    const precioTotal =
     precios[peso] +
     (glaseado ? extraGlaseado : 0) +
     (chips ? extraChips : 0) +
     (nueces ? extraNueces : 0);
+
+    const agregados = [];
+     if (!glaseado && !chips && !nueces) {
+    agregados.push("Sin agregados");
+    }
+    if (glaseado) agregados.push("Glaseado");
+    if (chips) agregados.push("Chips de Chocolate");
+    if (nueces) agregados.push("Nueces");
+    
 
 
   return (
@@ -44,7 +52,8 @@ export default function Item({ id, title, img, precios }) {
       <img src={img} alt={title} />
       <h3>{title}</h3>
       <p>Precio: ${precioTotal}</p>
-      <button className='agregar-btn'>Agregar al carrito</button>
+      <button className='agregar-btn' onClick={() => { addItem({ ...prod, precioUnidad: precioTotal, agregados: agregados, pesoSeleccionado: peso }); }}>Agregar al carrito</button>
+      
       <div className="options">
         <select
           value={peso}

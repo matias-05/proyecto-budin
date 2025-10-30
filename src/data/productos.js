@@ -1,5 +1,3 @@
-
-
 const productos = [
   {
     id: 1,
@@ -10,7 +8,7 @@ const productos = [
       "300gr": 2300,
       "250gr": 1740
     },
-    
+    precioUnidad: 0,
     categoria: "Tradicionales"
   },
   {
@@ -21,7 +19,8 @@ const productos = [
     "500gr": 3210,
     "300gr": 2300,
     "250gr": 1740
-  },
+    },
+    precioUnidad: 0,
     categoria: "Tradicionales"
   },
   {
@@ -33,6 +32,7 @@ const productos = [
       "300gr": 2300,
       "250gr": 1740
     },
+    precioUnidad: 0,
     categoria: "Tradicionales"
   },
   {
@@ -44,6 +44,7 @@ const productos = [
       "300gr": 2060,
       "250gr": 1750
     },
+    precioUnidad: 0,
     categoria: "Tradicionales"
   },
   {
@@ -55,6 +56,7 @@ const productos = [
       "300gr": 3550,
       "250gr": 2550
     },
+    precioUnidad: 0,
     categoria: "Dulces Tentaciones"
   },
   {
@@ -66,6 +68,7 @@ const productos = [
       "300gr": 3000,
       "250gr": 2380
     },
+    precioUnidad: 0,
     categoria: "Dulces Tentaciones"
   },
   {
@@ -77,6 +80,7 @@ const productos = [
       "300gr": 2210,
       "250gr": 1900
     },
+    precioUnidad: 0,
     categoria: "Dulces Tentaciones"
   },
   {
@@ -88,6 +92,7 @@ const productos = [
       "300gr": 2900,
       "250gr": 2150
     },
+    precioUnidad: 0,
     categoria: "Dulces Tentaciones"
   }
 ];
