@@ -1,9 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getProductoById } from '../../data/firebase'
-import './ItemDetailConteiner.css';
 
-export default function ItemDetailConteiner() {
+export default function ItemDetailContainer() {
   
   const { id } = useParams();
   const [producto, setProducto] = useState({ loading: true });
@@ -17,7 +16,7 @@ export default function ItemDetailConteiner() {
   }
 
   return (
-    <section className="ItemDetailConteiner">
+    <section className="ItemDetailContainer">
       <div className='detalle'>
         <div className='detalle-card'>
           <img src={producto.imagen} alt={producto.nombre} className='detalle-imagen'/>

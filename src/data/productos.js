@@ -1,7 +1,7 @@
 const productos = [
   {
     id: 1,
-    imagen: "../public/imagenes-productos/foto-producto.jpg",
+    imagen: "/imagenes-productos/foto-naranja.jpg",
     nombre: "Sabor Naranja",
     precios: {
       "500gr": 3210,
@@ -9,11 +9,12 @@ const productos = [
       "250gr": 1740
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: true },
     categoria: "Tradicionales"
   },
   {
     id: 2,
-    imagen: "../public/imagenes-productos/foto-producto2.jpg",
+    imagen: "/imagenes-productos/foto-mandarina.jpg",
     nombre: "Sabor Mandarina",
     precios: {
     "500gr": 3210,
@@ -21,11 +22,12 @@ const productos = [
     "250gr": 1740
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: true },
     categoria: "Tradicionales"
   },
   {
     id: 3,
-    imagen: "",
+    imagen: "/imagenes-productos/foto-limon.jpg",
     nombre: "Sabor Limón",
     precios: {
       "500gr": 3210,
@@ -33,11 +35,12 @@ const productos = [
       "250gr": 1740
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: true },
     categoria: "Tradicionales"
   },
   {
     id: 4,
-    imagen: "",
+    imagen: "/imagenes-productos/foto-vainilla.jpg",
     nombre: "Sabor Vainilla",
     precios: {
       "500gr": 3210,
@@ -45,6 +48,7 @@ const productos = [
       "250gr": 1750
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: true },
     categoria: "Tradicionales"
   },
   {
@@ -57,6 +61,7 @@ const productos = [
       "250gr": 2550
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: false, chips: false, nueces: false },
     categoria: "Dulces Tentaciones"
   },
   {
@@ -69,6 +74,7 @@ const productos = [
       "250gr": 2380
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: false, nueces: true },
     categoria: "Dulces Tentaciones"
   },
   {
@@ -81,6 +87,7 @@ const productos = [
       "250gr": 1900
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: false, chips: true, nueces: false },
     categoria: "Dulces Tentaciones"
   },
   {
@@ -93,8 +100,88 @@ const productos = [
       "250gr": 2150
     },
     precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: false },
     categoria: "Dulces Tentaciones"
+  },
+  {
+    id: 9,
+    imagen: "/imagenes-productos/foto-marmolado.jpg",
+    nombre: "Budín Marmolado",
+    precios: {
+      "500gr": 3750,
+      "300gr": 2600,
+      "250gr": 2100
+    },
+    precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: true },
+    categoria: "Budín Selecto"
+  },
+  {
+    id: 10,
+    imagen: "/imagenes-productos/foto-chocolate.jpg",
+    nombre: "Budín de Chocolate",
+    precios: {
+      "500gr": 4900,
+      "300gr": 3100,
+      "250gr": 2500
+    },
+    precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: true },
+    categoria: "Budín Selecto"
+  },
+  {
+    id: 11,
+    imagen: "",
+    nombre: "Budín de Limón y Arándanos (Con glaseado)",
+    precios: {
+      "500gr": 4600,
+      "300gr": 3360,
+      "250gr": 2500
+    },
+    precioUnidad: 0,
+    extrasPermitidos: { glaseado: false, chips: true, nueces: true },
+    categoria: "Budín Selecto"
+  },
+  {
+    id: 12,
+    imagen: "/imagenes-productos/foto-arandanos2.jpg",
+    nombre: "Budín de Limón y Arándanos (Sin glaseado)",
+    precios: {
+      "500gr": 3900,
+      "300gr": 2500,
+      "250gr": 2150
+    },
+    precioUnidad: 0,
+    extrasPermitidos: { glaseado: false, chips: true, nueces: true },
+    categoria: "Budín Selecto"
+  },
+  {
+    id: 13,
+    imagen: "",
+    nombre: "Budín de Zanahoria Integral (Con nuez)",
+    precios: {
+      "500gr": 4400,
+      "300gr": 3250,
+      "250gr": 2300
+    },
+    precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: false },
+    categoria: "Delicias Nutritivas"
+  },
+  {
+    id: 14,
+    imagen: "",
+    nombre: "Budín de Zanahoria Integral (Sin nuez)",
+    precios: {
+      "500gr": 3200,
+      "300gr": 2200,
+      "250gr": 1900
+    },
+    precioUnidad: 0,
+    extrasPermitidos: { glaseado: true, chips: true, nueces: false },
+    categoria: "Delicias Nutritivas"
   }
+  
 ];
 
 export default productos;

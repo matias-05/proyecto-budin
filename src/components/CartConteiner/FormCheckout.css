@@ -1,9 +1,0 @@
-.inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-    background-color: #681104;
-    color: #e37b00;
-    border-radius: 0.5rem;
-}

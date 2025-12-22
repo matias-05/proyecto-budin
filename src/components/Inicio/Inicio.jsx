@@ -1,11 +1,14 @@
-import './Inicio.css';
-import BtnCompra from './Button.jsx';
+import SectionInicio from './SectionInicio.jsx';
+import SectionSobreNosotros from './SectionSobreNosotros.jsx';
 
 export default function Inicio(props) {
   return (
-    <section className="inicio" id='inicio'>
-        <h2 className='eslogan'>{props.greeting}</h2>
-        <BtnCompra greeting="Ver Productos" />
-    </section>
+    <div className="font-['Dosis']">
+      
+      <SectionInicio />
+
+      <SectionSobreNosotros />
+      
+    </div>
   );
 }

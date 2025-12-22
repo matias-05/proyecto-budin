@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, doc, getDocs, getFirestore, getDoc, query, where, addDoc } from "firebase/firestore";
+import { collection, doc, getDocs, getFirestore, getDoc, query, where, addDoc, setDoc } from "firebase/firestore";
 import productosData from "./productos.js";
  
 const firebaseConfig = {
@@ -49,12 +49,30 @@ export async function createOrder(orderData) {
     return newOrderRef;
 }
 
-export async function subirProductos() {
-    for (let producto of productosData) {
-        delete producto.id;
-        const newDoc = await addDoc(collection(db, "products"), producto);
-        console.log("Producto agregado con ID: ", newDoc.id);
+export async function subirProductos({ forceUpdate = false } = {}) {
+  const productsRef = collection(db, "products");
+
+  for (const producto of productosData) {
+    try {
+      const q = query(productsRef, where("nombre", "==", producto.nombre));
+      const snapshot = await getDocs(q);
+
+      if (!snapshot.empty) {
+        console.log(`Skipped: producto existente "${producto.nombre}"`);
+        if (forceUpdate) {
+          const existingRef = snapshot.docs[0].ref;
+          await setDoc(existingRef, producto, { merge: true });
+          console.log(`Updated producto existente: "${producto.nombre}"`);
+        }
+        continue; 
+      }
+
+      const newDoc = await addDoc(productsRef, producto);
+      console.log("Producto agregado con ID: ", newDoc.id);
+    } catch (err) {
+      console.error("Error subiendo producto", producto?.nombre, err);
     }
+  }
 }
 
 export default app;
