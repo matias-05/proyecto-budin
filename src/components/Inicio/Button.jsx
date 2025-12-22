@@ -26,6 +26,8 @@ export default function Button(props) {
         
         /* Efectos Active (Click) */
         active:scale-95
+
+        cursor-pointer
       ">
         {/* Capa de brillo interna al pasar el mouse */}
         <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>

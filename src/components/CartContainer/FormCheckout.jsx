@@ -14,7 +14,7 @@ export default function FormCheckout(props) {
     function handleSubmit(event){
         event.preventDefault();
         // Validación básica antes de enviar
-        if(!formData.username || !formData.phone) {
+        if( !formData.phone) {
             alert("Por favor, completa todos los campos");
             return;
         }
@@ -37,21 +37,7 @@ export default function FormCheckout(props) {
             onSubmit={handleSubmit} 
             className="flex flex-col gap-6 font-['Dosis'] w-full"
         >
-            {/* CAMPO: NOMBRE */}
-            <div className="flex flex-col gap-2">
-                <label className="text-[#e37b00] font-black uppercase text-xs tracking-[0.2em] ml-2">
-                    Nombre del Cliente
-                </label>
-                <input 
-                    type="text" 
-                    name="username" 
-                    required
-                    placeholder="Ej: Juan Pérez"
-                    className="bg-[#520d03] border-2 border-[#e37b00]/20 rounded-2xl p-4 text-white outline-none focus:border-[#e37b00] focus:ring-1 focus:ring-[#e37b00] transition-all duration-300 placeholder:text-white/20 font-bold"
-                    onChange={handleInputChange} 
-                    value={formData.username} 
-                />
-            </div>
+            
 
             {/* CAMPO: TELÉFONO */}
             <div className="flex flex-col gap-2">
