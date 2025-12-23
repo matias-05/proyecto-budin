@@ -10,20 +10,16 @@ export default function CartWidget() {
   return (
     <Link to="/carrito" className="flex items-center group transition-all duration-300">
       
-      {/* LÍNEA DIVISORA IZQUIERDA */}
-      <div className="h-8 w-[2px] bg-[#681104] mx-4 md:mx-6 opacity-40 group-hover:opacity-100 transition-opacity" />
-
-      {/* CONTENEDOR DEL ICONO Y CONTADOR */}
-      <div className="relative flex items-center justify-center cursor-pointer">
-        
-        {/* ICONO DEL CARRITO */}
+      {/* CONTENEDOR DEL ICONO: 
+          order-1 en mobile (izquierda) 
+          md:order-2 en desktop (derecha) */}
+      <div className="relative flex items-center justify-center cursor-pointer order-1 md:order-2">
         <img 
           src={carrito} 
           alt="Cart" 
           className="h-8 w-8 object-contain transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-12" 
         />
 
-        {/* CONTADOR (Solo se muestra si hay items) */}
         {totalItems > 0 && (
           <span className="
             absolute -top-2 -right-2 
@@ -40,6 +36,12 @@ export default function CartWidget() {
           </span>
         )}
       </div>
+
+      {/* LÍNEA DIVISORA: 
+          order-2 en mobile (derecha del carrito) 
+          md:order-1 en desktop (izquierda del carrito) */}
+      <div className="h-8 w-[2px] bg-[#681104] mx-4 md:mx-6 opacity-40 group-hover:opacity-100 transition-opacity order-2 md:order-1" />
+
     </Link>
   );
 }
