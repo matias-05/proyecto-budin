@@ -1,10 +1,12 @@
-import { getProductos, getProductosByCategory } from '../../data/firebase.js';
+import { getProductos, getProductosByCategory, db } from '../../data/firebase.js'; 
+import { doc, getDoc } from 'firebase/firestore'; 
 import Item from './Item.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 export default function ItemListContainer() {
   const [productos, setProductos] = useState([]);
+  const [preciosExtras, setPreciosExtras] = useState(null); 
   const { categoria } = useParams();
   const [selectedCategory, setSelectedCategory] = useState(categoria ?? '');
   const navigate = useNavigate();
@@ -13,7 +15,23 @@ export default function ItemListContainer() {
     setSelectedCategory(categoria ?? '');
   }, [categoria]);
 
+  // Efecto para cargar los productos y los precios globales
   useEffect(() => {
+    // 1. Cargar Precios de Extras Globales (una sola vez)
+    const fetchExtras = async () => {
+      try {
+        const extrasRef = doc(db, "config", "precios_extras");
+        const extrasSnap = await getDoc(extrasRef);
+        if (extrasSnap.exists()) {
+          setPreciosExtras(extrasSnap.data());
+        }
+      } catch (err) {
+        console.error("Error cargando extras: ", err);
+      }
+    };
+    fetchExtras();
+
+    // 2. Cargar Productos por categoría
     if (categoria) {
       getProductosByCategory(categoria)
         .then(res => setProductos(res))
@@ -35,11 +53,9 @@ export default function ItemListContainer() {
 
   return (
     <section 
-      // pt-28 (padding top) asegura que el contenido empiece debajo del Navbar (h-20)
       className="min-h-screen bg-[#e37b00] font-['Dosis'] pt-28 pb-12 px-2 sm:px-6 md:px-12 flex flex-col items-center" 
       id="productos"
     >
-      {/* TÍTULO: Ahora debería verse perfectamente debajo del Navbar */}
       <h2 className="text-[#681104] text-3xl md:text-5xl font-black uppercase mb-8 tracking-tighter italic text-center">
         Nuestros Budines
       </h2>
@@ -78,6 +94,7 @@ export default function ItemListContainer() {
             img={item.imagen}
             precios={item.precios}
             prod={item}
+            preciosExtras={preciosExtras} 
           />
         ))}
       </div>

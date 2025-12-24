@@ -1,24 +1,35 @@
 import { useState, useContext } from 'react';
 import { cartContext } from '../../context/cartContext';
 
-export default function Item({ id, title, img, precios, prod }) {
+export default function Item({ title, img, precios, prod, preciosExtras }) {
   const [glaseado, setGlaseado] = useState(false);
   const [chips, setChips] = useState(false);
   const [nueces, setNueces] = useState(false);
   const [peso, setPeso] = useState("500gr");
   const { addItem } = useContext(cartContext);
 
-  //#region Lógica de Precios
-  let extraChips = peso === "250gr" ? 610 : peso === "300gr" ? 700 : 1050;
-  let extraNueces = peso === "250gr" ? 480 : peso === "300gr" ? 580 : 850;
+  //#region Lógica de Precios DINÁMICA
   
-  let extraGlaseado = 0;
-  const isVainilla = title.toLowerCase().includes("vainilla");
-  if (peso === "250gr") extraGlaseado = isVainilla ? 450 : 460;
-  else if (peso === "300gr") extraGlaseado = isVainilla ? 740 : 500;
-  else if (peso === "500gr") extraGlaseado = 900;
 
-  const precioTotal = precios[peso] + (glaseado ? extraGlaseado : 0) + (chips ? extraChips : 0) + (nueces ? extraNueces : 0);
+  const extras = preciosExtras || {
+    chips: { "250gr": 0, "300gr": 0, "500gr": 0 },
+    nueces: { "250gr": 0, "300gr": 0, "500gr": 0 },
+    glaseado_vainilla: { "250gr": 0, "300gr": 0, "500gr": 0 },
+    glaseado_otros: { "250gr": 0, "300gr": 0, "500gr": 0 }
+  };
+
+  let extraChips = extras.chips[peso];
+  let extraNueces = extras.nueces[peso];
+  
+  const isVainilla = title.toLowerCase().includes("vainilla");
+  const tipoGlaseado = isVainilla ? "glaseado_vainilla" : "glaseado_otros";
+  let extraGlaseado = extras[tipoGlaseado][peso];
+
+ 
+  const precioTotal = precios[peso] + 
+                      (glaseado ? extraGlaseado : 0) + 
+                      (chips ? extraChips : 0) + 
+                      (nueces ? extraNueces : 0);
 
   const agregados = [];
   if (!glaseado && !chips && !nueces) agregados.push("Sin agregados");
@@ -34,7 +45,7 @@ export default function Item({ id, title, img, precios, prod }) {
   //#endregion
 
   return (
-    <div className="bg-[#681104] rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col w-full border border-white/5 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl">
+    <div className="bg-[#681104] rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col w-full border border-white/5 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl font-['Dosis']">
       
       {/* IMAGEN */}
       <div className="relative h-32 md:h-44 overflow-hidden">
@@ -51,7 +62,6 @@ export default function Item({ id, title, img, precios, prod }) {
       {/* CONTENIDO */}
       <div className="p-3 md:p-4 flex flex-col gap-2 md:gap-3 text-[#e37b00]">
         
-        {/* TITULO Y PRECIO: Ajustado items-start para cuando el texto sea largo */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
           <h3 className="text-sm md:text-lg font-extrabold uppercase whitespace-normal break-words leading-tight">
             {title}
@@ -62,7 +72,6 @@ export default function Item({ id, title, img, precios, prod }) {
         </div>
 
         <div className="flex flex-col gap-2">
-          {/* SELECTOR Y CHECKBOXES (sin cambios) */}
           <select
             value={peso}
             onChange={e => setPeso(e.target.value)}
