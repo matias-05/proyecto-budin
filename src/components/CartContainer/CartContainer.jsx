@@ -80,12 +80,12 @@ export default function CartContainer() {
                     <CheckCircle className="text-[#e37b00] w-20 h-20 mx-auto mb-6" />
                     
                     <h2 className="text-[#e37b00] text-4xl font-black italic uppercase mb-4 leading-tight">
-                        ¡Casi listo!
+                        ¡Finaliza tu compra!
                     </h2>
                     
                     <p className="text-white text-lg mb-8">
                         Tu pedido se registró como pago por <strong>{metodoPagoTexto}</strong>. <br/>
-                        Presioná el botón para enviarnos el resumen por WhatsApp.
+                        Para finalizar el pedido presioná el botón para enviarnos el resumen por WhatsApp.
                     </p>
                     
                     <div className="flex flex-col gap-4">

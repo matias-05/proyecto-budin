@@ -19,7 +19,7 @@ export default function FormCheckout(props) {
             className="flex flex-col gap-6 font-['Dosis'] w-full max-w-md mx-auto"
         >
             <div className="flex flex-col gap-4">
-                <label className="text-[#681104] font-bold uppercase tracking-widest text-center text-lg">
+                <label className="text-[#e37b00] font-bold uppercase tracking-widest text-center text-lg">
                     Selecciona tu forma de pago
                 </label>
                 
