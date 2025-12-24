@@ -3,13 +3,11 @@ import { createContext, useState, useEffect } from "react";
 const cartContext = createContext("default value");
 
 export function CartProvider({children}) {
-    // 1. Inicialización "Lazy": Intenta cargar lo que haya en el disco al nacer el componente
     const [cartItems, setCartItems] = useState(() => {
         const localData = localStorage.getItem("carrito_rincon_budin");
         return localData ? JSON.parse(localData) : [];
     });
 
-    // 2. Efecto de Sincronización: Cada vez que cartItems cambie, se guarda en localStorage
     useEffect(() => {
         localStorage.setItem("carrito_rincon_budin", JSON.stringify(cartItems));
     }, [cartItems]);
@@ -21,8 +19,7 @@ export function CartProvider({children}) {
     function addItem(newItem) {
         const quantityCount = 1;
         const newCart = structuredClone(cartItems);
-        
-        // Buscamos si ya existe el producto con el mismo ID y MISMO PRECIO (por los extras/peso)
+    
         const isInCart = cartItems.some(item => 
             item.id === newItem.id && item.precioUnidad === newItem.precioUnidad
         );
@@ -62,7 +59,6 @@ export function CartProvider({children}) {
     const index = newCart.findIndex(item => item.id === itemId && item.precioUnidad === precioUnidad);
 
     if (index !== -1) {
-        // Delta será +1 para sumar y -1 para restar
         newCart[index].quantity += delta;
         setCartItems(newCart);
     }
