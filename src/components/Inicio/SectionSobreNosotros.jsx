@@ -13,9 +13,8 @@ export default function SectionSobreNosotros(props) {
             </h2>
             <img src="/logo-quienes.png" alt="Logo desktop" className="hidden md:block  h-16 object-contain"/>
             <p className="text-[1rem] md:text-[1.9em] font-extrabold text-[#4b0d04] bg-[#ff8c00a4] w-[90%] md:w-[70%] rounded-[3rem] p-8 text-center drop-shadow-[3px_3px_15px_#000000]">
-                Somos un emprendimiento dedicado a la elaboración 100% artesanal de budines, creados con dedicación, ingredientes seleccionados y sin ningún tipo de conservantes. Procuramos que cada receta sea preparada de forma cuidada, manteniendo el sabor casero que nos caracteriza y asegurando una experiencia única en cada bocado. 
-                Creemos que un buen budín no es solo un postre, sino que es un momento para disfrutar, compartir y recordar.
-                Es por esto que en Rincón del Budín no solo hacemos budines, también creamos experiencias únicas.
+                Rincón del Budín es un emprendimiento de budines 100% artesanales, elaborados sin conservantes y con ingredientes seleccionados.
+                Creemos que un budín no es solo un postre, sino que es un momento para disfrutar, compartir y recordar.
             </p>
             
         </div>
