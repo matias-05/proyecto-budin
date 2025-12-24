@@ -45,9 +45,7 @@ export default function FormCheckout(props) {
                 Finalizar Pedido
             </button>
 
-            <p className="text-[#e37b00]/50 text-[10px] text-center uppercase font-bold tracking-widest">
-                🔒 Tus datos están protegidos
-            </p>
+            
         </form>
     );
 }

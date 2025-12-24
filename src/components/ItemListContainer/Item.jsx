@@ -34,9 +34,9 @@ export default function Item({ id, title, img, precios, prod }) {
   //#endregion
 
   return (
-    /* 1. Recuperamos hover:scale y transition para la card */
     <div className="bg-[#681104] rounded-xl md:rounded-2xl overflow-hidden shadow-lg flex flex-col w-full border border-white/5 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl">
       
+      {/* IMAGEN */}
       <div className="relative h-32 md:h-44 overflow-hidden">
         <img 
           src={img} 
@@ -48,18 +48,21 @@ export default function Item({ id, title, img, precios, prod }) {
         </div>
       </div>
 
+      {/* CONTENIDO */}
       <div className="p-3 md:p-4 flex flex-col gap-2 md:gap-3 text-[#e37b00]">
         
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-          <h3 className="text-sm md:text-xl font-extrabold uppercase truncate">
+        {/* TITULO Y PRECIO: Ajustado items-start para cuando el texto sea largo */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1">
+          <h3 className="text-sm md:text-lg font-extrabold uppercase whitespace-normal break-words leading-tight">
             {title}
           </h3>
-          <span className="text-sm md:text-xl font-black">
+          <span className="text-sm md:text-xl font-black shrink-0">
             ${precioTotal}
           </span>
         </div>
 
         <div className="flex flex-col gap-2">
+          {/* SELECTOR Y CHECKBOXES (sin cambios) */}
           <select
             value={peso}
             onChange={e => setPeso(e.target.value)}
@@ -89,7 +92,6 @@ export default function Item({ id, title, img, precios, prod }) {
           </div>
         </div>
 
-        {/* 2. Recuperamos hover:bg-white y active:scale para el botón */}
         <button
           className="w-full mt-1 bg-[#e37b00] text-[#681104] font-black uppercase py-2 md:py-2.5 rounded-lg text-[11px] md:text-base tracking-tighter md:tracking-widest transition-all duration-200 hover:bg-white hover:shadow-lg active:scale-95 cursor-pointer relative z-10"
           onClick={() => addItem({ ...prod, precioUnidad: precioTotal, agregados, pesoSeleccionado: peso })}

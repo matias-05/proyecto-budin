@@ -2,17 +2,29 @@ import { useContext, useState } from "react";
 import { cartContext } from "../../context/cartContext";
 import { createOrder } from "../../data/firebase";
 import FormCheckout from "./FormCheckout";
-import { Trash2, ShoppingBag, CheckCircle } from "lucide-react";
+import { Trash2, ShoppingBag, CheckCircle, Plus, Minus } from "lucide-react"; // Agregamos Plus y Minus
 import { Link } from "react-router-dom"
 
 export default function CartContainer() {
-    const { cartItems, removeItem, totalPrice, clearCart, countCartItems } = useContext(cartContext);
+    const { cartItems, removeItem, totalPrice, clearCart, countCartItems, updateQuantity } = useContext(cartContext);
     const [newOrderCreated, setNewOrderCreated] = useState(false);
     const [buyerInfo, setBuyerInfo] = useState(null);
     
     // NUEVO: Estados para guardar la info final antes de borrar el carrito
     const [finalTotal, setFinalTotal] = useState(0);
     const [finalItems, setFinalItems] = useState([]);
+
+    const handleDecrement = (item) => {
+        if (item.quantity > 1) {
+            updateQuantity(item.id, item.precioUnidad, -1);
+        } else {
+            // Advertencia si es el último
+            const confirmDelete = window.confirm(`¿Estás seguro de que quieres eliminar "${item.nombre}" del carrito?`);
+            if (confirmDelete) {
+                removeItem(item.id, item.precioUnidad);
+            }
+        }
+    };
 
     async function handleCheckout(buyer) {
         try {
@@ -126,71 +138,109 @@ export default function CartContainer() {
 
     // --- VISTA: CARRITO CON PRODUCTOS ---
     return (
-        <section className="min-h-screen bg-[#e37b00] pt-28 pb-20 px-4 md:px-12 font-['Dosis']">
-            <div className="max-w-7xl mx-auto">
-                <h2 className="text-[#681104] text-4xl md:text-6xl font-black uppercase italic mb-10 text-center md:text-left">
-                    Tu Carrito !
-                </h2>
+    <section className="min-h-screen bg-[#e37b00] pt-28 pb-20 px-4 md:px-12 font-['Dosis']">
+        <div className="max-w-7xl mx-auto">
+            <h2 className="text-[#681104] text-4xl md:text-6xl font-black uppercase italic mb-10 text-center md:text-left">
+                Tu Carrito !
+            </h2>
 
-                <div className="flex flex-col lg:flex-row gap-10">
+            <div className="flex flex-col lg:flex-row gap-10">
+                
+                <div className="lg:w-2/3 flex flex-col gap-6">
+                    {cartItems.map((item) => (
+    <div 
+        key={`${item.id}-${item.precioUnidad}`} 
+        className="bg-[#681104] rounded-2xl overflow-hidden shadow-xl border border-white/5 relative group"
+    >
+        <div className="flex items-stretch">
+            
+            {/* CONTENEDOR DE IMAGEN */}
+            <div className="w-32 md:w-48 shrink-0 overflow-hidden relative">
+                <img 
+                    src={item.imagen} 
+                    alt={item.nombre} 
+                    className="absolute inset-0 w-full h-full object-cover transition-transform group-hover:scale-110 duration-500" 
+                />
+            </div>
+
+            {/* CONTENIDO */}
+            <div className="flex-1 flex flex-col justify-between p-4 md:p-8">
+                
+                <div className="pr-2">
+                    <h2 className="text-[#e37b00] text-xl md:text-4xl font-black uppercase italic leading-tight line-clamp-2">
+                        {item.nombre}
+                    </h2>
                     
-                    <div className="lg:w-2/3 flex flex-col gap-6">
-                        {cartItems.map((item) => (
-                            <div key={item.id} className="bg-[#681104] rounded-3xl p-4 md:p-6 shadow-xl flex flex-col md:flex-row items-center gap-6 border border-white/5 relative overflow-hidden group">
-                                <img src={item.imagen} alt={item.nombre} className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-2xl shadow-lg transition-transform group-hover:scale-105" />
-                                
-                                <div className="flex-1 text-center md:text-left">
-                                    <h2 className="text-[#e37b00] text-2xl md:text-3xl font-black uppercase italic leading-tight">
-                                        {item.nombre} <span className="text-white/50 text-xl font-bold italic lowercase">x{item.quantity}</span>
-                                    </h2>
-                                    <p className="text-white/80 font-bold text-lg mb-2">Peso: {item.pesoSeleccionado}</p>
-                                    
-                                    <ul className="flex flex-wrap justify-center md:justify-start gap-2 mb-3">
-                                        {item.agregados.length > 0 ? (
-                                            item.agregados.map((a, i) => (
-                                                <li key={i} className="bg-[#e37b00]/20 text-[#e37b00] text-xs font-bold px-3 py-1 rounded-full border border-[#e37b00]/30">
-                                                    {a}
-                                                </li>
-                                            ))
-                                        ) : (
-                                            <li className="text-white/40 text-xs italic uppercase tracking-widest">Sin agregados</li>
-                                        )}
-                                    </ul>
-                                    <p className="text-[#e37b00] text-2xl font-black">${item.precioUnidad * item.quantity}</p>
-                                </div>
+                    <p className="text-white/60 font-bold text-xs md:text-xl uppercase tracking-tighter mt-1">
+                        Peso: {item.pesoSeleccionado}
+                    </p>
+                    
+                    {item.agregados.length > 0 && (
+                        <p className="text-white/40 text-[11px] md:text-sm italic mt-1.5 leading-tight">
+                            + {item.agregados.join(", ")}
+                        </p>
+                    )}
+                </div>
 
-                                <button 
-                                    onClick={() => removeItem(item.id, item.precioUnidad)} 
-                                    className="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white p-3 rounded-2xl transition-all duration-300 group-hover:shadow-lg"
-                                >
-                                    <Trash2 size={24} />
-                                </button>
-                            </div>
-                        ))}
+                <div className="flex items-end justify-between mt-4">
+                    
+                    {/* SELECTOR DE CANTIDAD */}
+                    <div className="flex items-center gap-2 md:gap-4 bg-black/30 p-1.5 rounded-xl border border-white/5">
+                        <button 
+                            onClick={() => handleDecrement(item)}
+                            className="bg-[#e37b00] text-[#681104] p-1 md:p-1.5 rounded-lg hover:bg-white transition-all cursor-pointer active:scale-90"
+                        >
+                            {item.quantity === 1 ? <Trash2 size={16} className="md:w-6 md:h-6" /> : <Minus size={16} className="md:w-6 md:h-6" />}
+                        </button>
+
+                        <span className="text-white font-black text-base md:text-2xl min-w-[20px] text-center">
+                            {item.quantity}
+                        </span>
+
+                        <button 
+                            onClick={() => updateQuantity(item.id, item.precioUnidad, 1)}
+                            className="bg-[#e37b00] text-[#681104] p-1 md:p-1.5 rounded-lg hover:bg-white transition-all cursor-pointer active:scale-90"
+                        >
+                            <Plus size={16} className="md:w-6 md:h-6" />
+                        </button>
                     </div>
 
-                    <div className="lg:w-1/3">
-                        <div className="bg-[#681104] rounded-3xl p-8 shadow-2xl border border-white/5 sticky top-28">
-                            <h2 className="text-[#e37b00] text-3xl font-black uppercase italic mb-6 border-b border-[#e37b00]/20 pb-4 text-center">Resumen</h2>
-                            
-                            <div className="flex justify-between text-white text-xl mb-4">
-                                <span className="font-bold opacity-70 italic">Productos:</span>
-                                <span className="font-black text-[#e37b00]">{countCartItems()}</span>
-                            </div>
-                            
-                            <div className="flex justify-between text-white text-3xl mb-8 items-center border-t border-[#e37b00]/20 pt-6">
-                                <span className="font-black italic uppercase">Total:</span>
-                                <span className="font-black text-[#e37b00] tracking-tighter">${totalPrice()}</span>
-                            </div>
-
-                            <div className="bg-black/20 p-4 rounded-2xl">
-                                <FormCheckout handleCheckout={handleCheckout} />
-                            </div>
-                        </div>
+                    {/* PRECIO SUBTOTAL */}
+                    <div className="text-right">
+                        <p className="text-[#e37b00] text-2xl md:text-4xl font-black tracking-tighter">
+                            ${item.precioUnidad * item.quantity}
+                        </p>
                     </div>
-
                 </div>
             </div>
-        </section>
-    );
+        </div>
+    </div>
+))}
+                </div>
+
+                {/* RESUMEN DE COMPRA */}
+                <div className="lg:w-1/3">
+                    <div className="bg-[#681104] rounded-3xl p-8 shadow-2xl border border-white/5 sticky top-28">
+                        <h2 className="text-[#e37b00] text-3xl font-black uppercase italic mb-6 border-b border-[#e37b00]/20 pb-4 text-center">Resumen</h2>
+                        
+                        <div className="flex justify-between text-white text-xl mb-4">
+                            <span className="font-bold opacity-70 italic">Productos:</span>
+                            <span className="font-black text-[#e37b00]">{countCartItems()}</span>
+                        </div>
+                        
+                        <div className="flex justify-between text-white text-3xl mb-8 items-center border-t border-[#e37b00]/20 pt-6">
+                            <span className="font-black italic uppercase">Total:</span>
+                            <span className="font-black text-[#e37b00] tracking-tighter">${totalPrice()}</span>
+                        </div>
+
+                        <div className="bg-black/20 p-4 rounded-2xl">
+                            <FormCheckout handleCheckout={handleCheckout} />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+);
 }

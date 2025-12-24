@@ -57,8 +57,21 @@ export function CartProvider({children}) {
         return cartItems.reduce((acc, item) => acc + item.precioUnidad * item.quantity, 0);
     }
 
+    function updateQuantity(itemId, precioUnidad, delta) {
+    const newCart = structuredClone(cartItems);
+    const index = newCart.findIndex(item => item.id === itemId && item.precioUnidad === precioUnidad);
+
+    if (index !== -1) {
+        // Delta será +1 para sumar y -1 para restar
+        newCart[index].quantity += delta;
+        setCartItems(newCart);
+    }
+}
+
     return (
-        <cartContext.Provider value={{cartItems, addItem, countCartItems, removeItem, totalPrice, clearCart}}>
+        <cartContext.Provider value={{
+            cartItems, addItem, countCartItems, removeItem, totalPrice, clearCart, updateQuantity // <--- Agregado aquí
+        }}>
             {children}
         </cartContext.Provider>
     );
