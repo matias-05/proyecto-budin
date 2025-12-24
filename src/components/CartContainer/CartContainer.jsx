@@ -2,15 +2,13 @@ import { useContext, useState } from "react";
 import { cartContext } from "../../context/cartContext";
 import { createOrder } from "../../data/firebase";
 import FormCheckout from "./FormCheckout";
-import { Trash2, ShoppingBag, CheckCircle, Plus, Minus } from "lucide-react"; // Agregamos Plus y Minus
+import { Trash2, ShoppingBag, CheckCircle, Plus, Minus } from "lucide-react";
 import { Link } from "react-router-dom"
 
 export default function CartContainer() {
     const { cartItems, removeItem, totalPrice, clearCart, countCartItems, updateQuantity } = useContext(cartContext);
     const [newOrderCreated, setNewOrderCreated] = useState(false);
     const [buyerInfo, setBuyerInfo] = useState(null);
-    
-    // NUEVO: Estados para guardar la info final antes de borrar el carrito
     const [finalTotal, setFinalTotal] = useState(0);
     const [finalItems, setFinalItems] = useState([]);
 
@@ -18,7 +16,6 @@ export default function CartContainer() {
         if (item.quantity > 1) {
             updateQuantity(item.id, item.precioUnidad, -1);
         } else {
-            // Advertencia si es el último
             const confirmDelete = window.confirm(`¿Estás seguro de que quieres eliminar "${item.nombre}" del carrito?`);
             if (confirmDelete) {
                 removeItem(item.id, item.precioUnidad);
@@ -28,12 +25,11 @@ export default function CartContainer() {
 
     async function handleCheckout(buyer) {
         try {
-            // 1. Guardamos los valores actuales antes de que desaparezcan
             const currentTotal = totalPrice();
             const currentItems = [...cartItems]; 
 
             const newOrder = {
-                buyer,
+                buyer, 
                 items: currentItems,
                 total: currentTotal,
                 date: new Date(),
@@ -41,13 +37,11 @@ export default function CartContainer() {
 
             const newOrderConfirmed = await createOrder(newOrder);
             
-            // 2. Seteamos los estados locales con la info "congelada"
             setFinalTotal(currentTotal);
             setFinalItems(currentItems);
-            setBuyerInfo(buyer);
+            setBuyerInfo(buyer); 
             setNewOrderCreated(newOrderConfirmed.id);
 
-            // 3. Ahora sí podemos limpiar el carrito sin perder la info para el mensaje
             clearCart();
         } catch (error) {
             console.error("Error al procesar la compra:", error);
@@ -56,70 +50,71 @@ export default function CartContainer() {
 
     // --- VISTA: ORDEN CREADA ---
     if (newOrderCreated && buyerInfo) {
-    const ownerPhone = import.meta.env.VITE_WHATSAPP_OWNER_PHONE;
+        const ownerPhone = import.meta.env.VITE_WHATSAPP_OWNER_PHONE;
 
-    const detallePedido = finalItems.map(item => {
-        const precioSubtotal = item.precioUnidad * item.quantity;
-        let textoItem = `${item.nombre} ${item.pesoSeleccionado} x${item.quantity} (${precioSubtotal}$)`;
+        const detallePedido = finalItems.map(item => {
+            const precioSubtotal = item.precioUnidad * item.quantity;
+            let textoItem = `• ${item.nombre} (${item.pesoSeleccionado}) x${item.quantity} - $${precioSubtotal}`;
 
-        if (item.agregados && item.agregados.length > 0) {
-            const listaAgregados = item.agregados.map(a => `-${a}`).join("\n");
-            textoItem += `\nAgregados:\n${listaAgregados}`;
-        }
-        return textoItem;
-    }).join("\n\n");
+            if (item.agregados && item.agregados.length > 0) {
+                const listaAgregados = item.agregados.map(a => `  └ ${a}`).join("\n");
+                textoItem += `\n${listaAgregados}`;
+            }
+            return textoItem;
+        }).join("\n");
 
-    const mensajeTexto = 
-        `Hola Rincon del Budín, quiero realizar este pedido:\n` +
-        `${detallePedido}\n\n` +
-        `Total del pedido: ${finalTotal}$\n`;
 
-    const whatsappLink = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(mensajeTexto)}`;
+        const metodoPagoTexto = buyerInfo.paymentMethod === 'efectivo' ? 'Efectivo' : 'Transferencia';
 
-    return (
-        <section className="min-h-screen bg-[#e37b00] pt-32 flex justify-center px-4 font-['Dosis']">
-            <div className="bg-[#681104] p-8 md:p-12 rounded-3xl shadow-2xl text-center h-fit max-w-lg border border-white/10 animate-in fade-in zoom-in duration-500">
-                <CheckCircle className="text-[#e37b00] w-20 h-20 mx-auto mb-6" />
-                
-                <h2 className="text-[#e37b00] text-4xl font-black italic uppercase mb-4 leading-tight">
-                    ¡Pedido Recibido!
-                </h2>
-                
-                <p className="text-white text-lg mb-8">
-                    Para finalizar, presioná el botón y envianos el resumen de tu compra por WhatsApp:
-                </p>
-                
-                {/* CONTENEDOR DE BOTONES */}
-                <div className="flex flex-col gap-4">
-                    {/* BOTÓN PRIMARIO: WHATSAPP */}
-                    <a 
-                        href={whatsappLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-3 bg-[#25D366] text-white font-black py-4 px-8 rounded-full text-lg uppercase shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 w-full justify-center"
-                    >
-                        <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.888 11.888-11.888 3.176 0 6.161 1.237 8.404 3.48s3.481 5.229 3.481 8.405c0 6.556-5.332 11.888-11.888 11.888-2.003 0-3.96-.503-5.69-1.458l-6.394 1.782zm6.191-3.974c1.536.914 3.307 1.395 5.104 1.396 5.409 0 9.811-4.403 9.811-9.812 0-2.618-1.02-5.08-2.873-6.932-1.851-1.852-4.311-2.872-6.938-2.872-5.409 0-9.812 4.403-9.812 9.812 0 1.936.569 3.814 1.644 5.409l-1.074 3.92 4.038-1.121zm10.702-7.042c-.203-.102-1.202-.594-1.386-.662-.185-.067-.319-.101-.454.102-.134.202-.522.661-.641.795-.117.134-.236.152-.439.051-.202-.102-.856-.316-1.631-.996-.604-.543-1.011-1.213-1.129-1.417-.118-.202-.013-.312.089-.413.092-.091.203-.236.304-.354.102-.119.135-.203.203-.339.068-.135.034-.254-.017-.354-.051-.102-.454-1.092-.622-1.493-.164-.393-.329-.339-.454-.346-.118-.006-.252-.007-.386-.007-.135 0-.354.051-.54.254-.185.203-.707.691-.707 1.686 0 .996.724 1.959.826 2.094.101.135 1.425 2.176 3.452 3.051.482.208.859.333 1.153.426.484.153.925.132 1.274.08.389-.057 1.202-.492 1.37-1.165s.168-1.253.118-1.37c-.051-.118-.185-.185-.389-.286z"/></svg>
-                        Finalizar por WhatsApp
-                    </a>
+        const mensajeTexto = 
+            `Hola Rincón del Budín, quiero realizar este pedido:\n\n` +
+            `${detallePedido}\n\n` +
+            `*Total:* $${finalTotal}\n` +
+            `*Forma de Pago:* ${metodoPagoTexto}`;
 
-                    {/* BOTÓN SECUNDARIO: VOLVER AL INICIO */}
-                    <Link 
-                        to="/"
-                        className="text-[#e37b00] border-2 border-[#e37b00]/30 font-bold py-3 px-8 rounded-full text-base uppercase tracking-widest hover:bg-[#e37b00] hover:text-[#681104] transition-all duration-300"
-                    >
-                        Volver al inicio
-                    </Link>
-                </div>
+        const whatsappLink = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(mensajeTexto)}`;
 
-                <div className="mt-8 pt-6 border-t border-white/10 opacity-50">
-                    <p className="text-white font-bold text-sm tracking-widest uppercase">
-                        ID DE ORDEN: {newOrderCreated}
+        return (
+            <section className="min-h-screen bg-[#e37b00] pt-32 flex justify-center px-4 font-['Dosis']">
+                <div className="bg-[#681104] p-8 md:p-12 rounded-3xl shadow-2xl text-center h-fit max-w-lg border border-white/10 animate-in fade-in zoom-in duration-500">
+                    <CheckCircle className="text-[#e37b00] w-20 h-20 mx-auto mb-6" />
+                    
+                    <h2 className="text-[#e37b00] text-4xl font-black italic uppercase mb-4 leading-tight">
+                        ¡Casi listo!
+                    </h2>
+                    
+                    <p className="text-white text-lg mb-8">
+                        Tu pedido se registró como pago por <strong>{metodoPagoTexto}</strong>. <br/>
+                        Presioná el botón para enviarnos el resumen por WhatsApp.
                     </p>
+                    
+                    <div className="flex flex-col gap-4">
+                        <a 
+                            href={whatsappLink}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-3 bg-[#25D366] text-white font-black py-4 px-8 rounded-full text-lg uppercase shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 w-full justify-center"
+                        >
+                            Enviar a WhatsApp
+                        </a>
+
+                        <Link 
+                            to="/"
+                            className="text-[#e37b00] border-2 border-[#e37b00]/30 font-bold py-3 px-8 rounded-full text-base uppercase tracking-widest hover:bg-[#e37b00] hover:text-[#681104] transition-all duration-300"
+                        >
+                            Volver al inicio
+                        </Link>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-white/10 opacity-50">
+                        <p className="text-white font-bold text-sm tracking-widest uppercase">
+                            ORDEN: {newOrderCreated}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </section>
-    );
-}
+            </section>
+        );
+    }
     // --- VISTA: CARRITO VACÍO ---
     if (cartItems.length === 0) {
         return (
