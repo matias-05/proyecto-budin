@@ -1,4 +1,4 @@
-export default function SectionSobreNosotros(props) {
+export default function SectionSobreNosotros() {
   return (
     <section id='quienes-somos' className="relative w-full h-screen flex flex-col items-center justify-center md:justify-start md:flex-row md:items-stretch">
         <div className="absolute inset-0 z-0 bg-cover bg-center md:bg-[length:50%] md:bg-right md:bg-no-repeat" style={{ backgroundImage: "url('/fondo-quienes.jpg')" }}>

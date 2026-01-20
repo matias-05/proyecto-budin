@@ -2,7 +2,7 @@ import BtnCompra from './Button.jsx';
 import { subirProductos } from '../../data/firebase.js';
 import fondoBudin from '../../media/fondo-budin3.jpeg';
 
-export default function SectionInicio(props) {
+export default function SectionInicio() {
   return (
     
       <section id='inicio' className="relative h-screen w-full bg-cover bg-center" style={{ backgroundImage: `url(${fondoBudin})` }}>
