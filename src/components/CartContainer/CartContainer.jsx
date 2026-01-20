@@ -27,7 +27,6 @@ export default function CartContainer() {
   const [finalTotal, setFinalTotal] = useState(0);
   const [finalItems, setFinalItems] = useState([]);
 
-  // --- ESTADOS PARA EL MODAL PERSONALIZADO ---
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
 
@@ -35,7 +34,6 @@ export default function CartContainer() {
     if (item.quantity > 1) {
       updateQuantity(item.id, item.precioUnidad, -1);
     } else {
-      // En lugar de window.confirm, abrimos nuestro modal
       setProductToDelete(item);
       setIsModalOpen(true);
     }
@@ -49,7 +47,6 @@ export default function CartContainer() {
     }
   };
 
-  // --- EL RESTO DE TUS FUNCIONES (handleCheckout, handleFinalize, etc.) ---
   async function handleCheckout(buyer) {
     try {
       const currentTotal = totalPrice();
@@ -74,9 +71,7 @@ export default function CartContainer() {
     clearCart();
   };
 
-  // --- VISTA: ORDEN CREADA ---
   if (newOrderCreated && buyerInfo) {
-    // ... (Tu código de vista de éxito se mantiene igual)
     const ownerPhone = import.meta.env.VITE_WHATSAPP_OWNER_PHONE;
     const detallePedido = finalItems
       .map((item) => {
@@ -93,7 +88,7 @@ export default function CartContainer() {
       .join("\n");
     const metodoPagoTexto =
       buyerInfo.paymentMethod === "efectivo" ? "Efectivo" : "Transferencia";
-    const mensajeTexto = `Hola Rincón del Budín, quiero realizar este pedido:\n\n${detallePedido}\n\n*Total:* $${finalTotal}\n*Forma de Pago:* ${metodoPagoTexto}\n\nID de orden: ${newOrderCreated}`;
+    const mensajeTexto = `Hola Rincón del Budín, quiero realizar este pedido:\n\n${detallePedido}\n\n*Total:* $${finalTotal}\n*Forma de Pago:* ${metodoPagoTexto}`;
     const whatsappLink = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(mensajeTexto)}`;
 
     return (
@@ -130,7 +125,6 @@ export default function CartContainer() {
     );
   }
 
-  // --- VISTA: CARRITO VACÍO ---
   if (cartItems.length === 0) {
     return (
       <section className="min-h-screen bg-[#e37b00] pt-40 flex flex-col items-center px-4 font-['Dosis'] text-[#681104]">
@@ -154,7 +148,6 @@ export default function CartContainer() {
         <h2 className="text-[#681104] text-4xl md:text-6xl font-black uppercase italic mb-10 text-center md:text-left">
           Tu Carrito !
         </h2>
-
         <div className="flex flex-col lg:flex-row gap-10">
           <div className="lg:w-2/3 flex flex-col gap-6">
             {cartItems.map((item) => (
@@ -178,6 +171,14 @@ export default function CartContainer() {
                       <p className="text-white/60 font-bold text-xs md:text-xl uppercase tracking-tighter mt-1">
                         Peso: {item.pesoSeleccionado}
                       </p>
+
+                      {/* --- SECCIÓN REINCORPORADA: AGREGADOS --- */}
+                      {item.agregados && item.agregados.length > 0 && (
+                        <p className="text-white/40 text-[11px] md:text-sm italic mt-2 leading-tight">
+                          + {item.agregados.join(", ")}
+                        </p>
+                      )}
+                      {/* -------------------------------------- */}
                     </div>
                     <div className="flex items-end justify-between mt-4">
                       <div className="flex items-center gap-2 md:gap-4 bg-black/30 p-1.5 rounded-xl border border-white/5">
@@ -240,23 +241,17 @@ export default function CartContainer() {
         </div>
       </div>
 
-      {/* --- MODAL PERSONALIZADO DE ELIMINACIÓN --- */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
-          {/* Overlay oscuro */}
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300"
             onClick={() => setIsModalOpen(false)}
           ></div>
-
-          {/* Contenido del Modal */}
           <div className="bg-[#681104] border-2 border-[#e37b00] p-8 rounded-3xl shadow-2xl max-w-sm w-full relative z-10 animate-in zoom-in slide-in-from-bottom-4 duration-300 text-center">
             <AlertTriangle className="text-[#e37b00] w-16 h-16 mx-auto mb-4" />
-
             <h3 className="text-[#e37b00] text-2xl font-black uppercase italic mb-2">
               ¿Eliminar producto?
             </h3>
-
             <p className="text-white/80 text-lg mb-8 leading-tight">
               Vas a quitar{" "}
               <span className="text-white font-bold">
@@ -264,7 +259,6 @@ export default function CartContainer() {
               </span>{" "}
               del carrito.
             </p>
-
             <div className="flex flex-col gap-3">
               <button
                 onClick={confirmDelete}
@@ -272,7 +266,6 @@ export default function CartContainer() {
               >
                 Sí, eliminar
               </button>
-
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="text-white/60 font-bold py-2 hover:text-white transition-colors text-sm uppercase tracking-widest"
