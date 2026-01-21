@@ -7,7 +7,9 @@ export default function SectionInicio() {
     <section
       id="inicio"
       className="relative h-screen w-full bg-cover bg-center"
-      style={{ backgroundImage: `url(${fondoBudin})` }}
+      style={{ backgroundImage: `url(${fondoBudin}) ` }}
+      loading="lazy"
+      decoding="async"
     >
       <div className="absolute inset-0 bg-black/50 z-0 pointer-events-none"></div>
 
@@ -42,6 +44,7 @@ export default function SectionInicio() {
       {/* Botón oculto de administración (mantenido del código original) */}
       <button
         onClick={subirProductos}
+        aria-label="Actualizar firebase"
         className="hidden absolute bottom-4 left-4 bg-red-500 text-white px-4 py-2 rounded z-50"
       >
         Actualizar firebase
