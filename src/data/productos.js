@@ -1,55 +1,55 @@
 const productos = [
   {
     id: 1,
-    imagen: "/imagenes-productos/foto-naranja.jpg",
+    imagen: "/imagenes-productos/foto-naranja.webp",
     nombre: "Sabor Naranja",
     precios: {
       "500gr": 3210,
       "300gr": 2300,
-      "250gr": 1740
+      "250gr": 1740,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: true },
-    categoria: "Tradicionales"
+    categoria: "Tradicionales",
   },
   {
     id: 2,
-    imagen: "/imagenes-productos/foto-mandarina.jpg",
+    imagen: "/imagenes-productos/foto-mandarina.webp",
     nombre: "Sabor Mandarina",
     precios: {
-    "500gr": 3210,
-    "300gr": 2300,
-    "250gr": 1740
+      "500gr": 3210,
+      "300gr": 2300,
+      "250gr": 1740,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: true },
-    categoria: "Tradicionales"
+    categoria: "Tradicionales",
   },
   {
     id: 3,
-    imagen: "/imagenes-productos/foto-limon.jpg",
+    imagen: "/imagenes-productos/foto-limon.webp",
     nombre: "Sabor Limón",
     precios: {
       "500gr": 3210,
       "300gr": 2300,
-      "250gr": 1740
+      "250gr": 1740,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: true },
-    categoria: "Tradicionales"
+    categoria: "Tradicionales",
   },
   {
     id: 4,
-    imagen: "/imagenes-productos/foto-vainilla.jpg",
+    imagen: "/imagenes-productos/foto-vainilla.webp",
     nombre: "Sabor Vainilla",
     precios: {
       "500gr": 3210,
       "300gr": 2060,
-      "250gr": 1750
+      "250gr": 1750,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: true },
-    categoria: "Tradicionales"
+    categoria: "Tradicionales",
   },
   {
     id: 5,
@@ -58,11 +58,11 @@ const productos = [
     precios: {
       "500gr": 4950,
       "300gr": 3550,
-      "250gr": 2550
+      "250gr": 2550,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: false, chips: false, nueces: false },
-    categoria: "Dulces Tentaciones"
+    categoria: "Dulces Tentaciones",
   },
   {
     id: 6,
@@ -71,11 +71,11 @@ const productos = [
     precios: {
       "500gr": 4200,
       "300gr": 3000,
-      "250gr": 2380
+      "250gr": 2380,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: false, nueces: true },
-    categoria: "Dulces Tentaciones"
+    categoria: "Dulces Tentaciones",
   },
   {
     id: 7,
@@ -84,11 +84,11 @@ const productos = [
     precios: {
       "500gr": 3410,
       "300gr": 2210,
-      "250gr": 1900
+      "250gr": 1900,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: false, chips: true, nueces: false },
-    categoria: "Dulces Tentaciones"
+    categoria: "Dulces Tentaciones",
   },
   {
     id: 8,
@@ -97,37 +97,37 @@ const productos = [
     precios: {
       "500gr": 4250,
       "300gr": 2900,
-      "250gr": 2150
+      "250gr": 2150,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: false },
-    categoria: "Dulces Tentaciones"
+    categoria: "Dulces Tentaciones",
   },
   {
     id: 9,
-    imagen: "/imagenes-productos/foto-marmolado.jpg",
+    imagen: "/imagenes-productos/foto-marmolado.webp",
     nombre: "Budín Marmolado",
     precios: {
       "500gr": 3750,
       "300gr": 2600,
-      "250gr": 2100
+      "250gr": 2100,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: true },
-    categoria: "Budín Selecto"
+    categoria: "Budín Selecto",
   },
   {
     id: 10,
-    imagen: "/imagenes-productos/foto-chocolate.jpg",
+    imagen: "/imagenes-productos/foto-chocolate.webp",
     nombre: "Budín de Chocolate",
     precios: {
       "500gr": 4900,
       "300gr": 3100,
-      "250gr": 2500
+      "250gr": 2500,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: true },
-    categoria: "Budín Selecto"
+    categoria: "Budín Selecto",
   },
   {
     id: 11,
@@ -136,24 +136,24 @@ const productos = [
     precios: {
       "500gr": 4600,
       "300gr": 3360,
-      "250gr": 2500
+      "250gr": 2500,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: false, chips: true, nueces: true },
-    categoria: "Budín Selecto"
+    categoria: "Budín Selecto",
   },
   {
     id: 12,
-    imagen: "/imagenes-productos/foto-arandanos2.jpg",
+    imagen: "/imagenes-productos/foto-arandanos2.webp",
     nombre: "Budín de Limón y Arándanos (Sin glaseado)",
     precios: {
       "500gr": 3900,
       "300gr": 2500,
-      "250gr": 2150
+      "250gr": 2150,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: false, chips: true, nueces: true },
-    categoria: "Budín Selecto"
+    categoria: "Budín Selecto",
   },
   {
     id: 13,
@@ -162,11 +162,11 @@ const productos = [
     precios: {
       "500gr": 4400,
       "300gr": 3250,
-      "250gr": 2300
+      "250gr": 2300,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: false },
-    categoria: "Delicias Nutritivas"
+    categoria: "Delicias Nutritivas",
   },
   {
     id: 14,
@@ -175,13 +175,12 @@ const productos = [
     precios: {
       "500gr": 3200,
       "300gr": 2200,
-      "250gr": 1900
+      "250gr": 1900,
     },
     precioUnidad: 0,
     extrasPermitidos: { glaseado: true, chips: true, nueces: false },
-    categoria: "Delicias Nutritivas"
-  }
-  
+    categoria: "Delicias Nutritivas",
+  },
 ];
 
 export default productos;

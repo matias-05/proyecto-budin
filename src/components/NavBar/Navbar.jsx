@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CartWidget from "./CartWidget";
-import logoBudin from "../../media/logo-budin.png";
+import logoBudin from "../../media/logo-budin.webp";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
