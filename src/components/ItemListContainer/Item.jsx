@@ -67,6 +67,8 @@ export default function Item({ title, img, precios, prod, preciosExtras }) {
       <div className="relative h-32 md:h-44 overflow-hidden">
         <img
           src={img}
+          loading="lazy"
+          decoding="async"
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />

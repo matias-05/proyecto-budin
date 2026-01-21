@@ -159,6 +159,8 @@ export default function CartContainer() {
                   <div className="w-32 md:w-48 shrink-0 overflow-hidden relative">
                     <img
                       src={item.imagen}
+                      loading="lazy"
+                      decoding="async"
                       alt={item.nombre}
                       className="absolute inset-0 w-full h-full object-cover transition-transform group-hover:scale-110 duration-500"
                     />
@@ -185,6 +187,7 @@ export default function CartContainer() {
                         <button
                           onClick={() => handleDecrement(item)}
                           className="bg-[#e37b00] text-[#681104] p-1 md:p-1.5 rounded-lg hover:bg-white transition-all cursor-pointer active:scale-90"
+                          aria-label="Disminuir cantidad de producto"
                         >
                           {item.quantity === 1 ? (
                             <Trash2 size={16} className="md:w-6 md:h-6" />
@@ -199,6 +202,7 @@ export default function CartContainer() {
                           onClick={() =>
                             updateQuantity(item.id, item.precioUnidad, 1)
                           }
+                          aria-label="Aumentar cantidad de producto"
                           className="bg-[#e37b00] text-[#681104] p-1 md:p-1.5 rounded-lg hover:bg-white transition-all cursor-pointer active:scale-90"
                         >
                           <Plus size={16} className="md:w-6 md:h-6" />
