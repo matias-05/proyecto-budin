@@ -50,8 +50,16 @@ export default function BudinesManager({ products, setProducts }) {
       const productRef = doc(db, "products", editingProduct.id);
       let finalImageUrl = editingProduct.imagen;
       const file = e.target.foto.files[0];
+
       if (file) finalImageUrl = await uploadToCloudinary(file);
-      await updateDoc(productRef, { ...editingProduct, imagen: finalImageUrl });
+
+      const { id, ...dataToSave } = editingProduct;
+
+      await updateDoc(productRef, {
+        ...dataToSave,
+        imagen: finalImageUrl,
+      });
+
       setProducts(
         products.map((p) =>
           p.id === editingProduct.id
@@ -59,10 +67,12 @@ export default function BudinesManager({ products, setProducts }) {
             : p,
         ),
       );
+
       setEditingProduct(null);
       alert("¡Budín actualizado!");
     } catch (error) {
-      alert("Error al actualizar");
+      console.error("Error al actualizar:", error);
+      alert("Error al actualizar el producto. Revisa la consola.");
     } finally {
       setUploading(false);
     }

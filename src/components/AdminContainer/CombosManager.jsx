@@ -1,13 +1,24 @@
 import { useState } from "react";
 import { db } from "../../data/firebase";
-import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
-import { Plus, Edit3 } from "lucide-react";
+import {
+  collection,
+  addDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore"; // Agregamos deleteDoc
+import { Plus, Edit3, Trash2, AlertTriangle } from "lucide-react"; // Agregamos Trash2 y AlertTriangle
 import { uploadToCloudinary } from "./adminUtils";
 
 export default function CombosManager({ combos, setCombos }) {
   const [editingCombo, setEditingCombo] = useState(null);
   const [isAddingCombo, setIsAddingCombo] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  // --- ESTADOS PARA BORRAR ---
+  const [comboToDelete, setComboToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const [newCombo, setNewCombo] = useState({
     nombre: "",
     descripcion: "",
@@ -54,7 +65,11 @@ export default function CombosManager({ combos, setCombos }) {
       let finalImageUrl = editingCombo.imagen;
       const file = e.target.foto.files[0];
       if (file) finalImageUrl = await uploadToCloudinary(file);
-      await updateDoc(comboRef, { ...editingCombo, imagen: finalImageUrl });
+
+      // Limpiamos el ID antes de enviar a Firestore
+      const { id, ...dataToUpdate } = editingCombo;
+
+      await updateDoc(comboRef, { ...dataToUpdate, imagen: finalImageUrl });
       setCombos(
         combos.map((c) =>
           c.id === editingCombo.id
@@ -65,9 +80,27 @@ export default function CombosManager({ combos, setCombos }) {
       setEditingCombo(null);
       alert("¡Combo actualizado!");
     } catch (error) {
-      alert("Error");
+      console.error(error);
+      alert("Error al actualizar");
     } finally {
       setUploading(false);
+    }
+  };
+
+  // --- LÓGICA DE ELIMINACIÓN ---
+  const handleDeleteCombo = async () => {
+    if (!comboToDelete) return;
+    setIsDeleting(true);
+    try {
+      await deleteDoc(doc(db, "combos", comboToDelete.id));
+      setCombos(combos.filter((c) => c.id !== comboToDelete.id));
+      setComboToDelete(null);
+      alert("Combo eliminado con éxito.");
+    } catch (error) {
+      console.error(error);
+      alert("Error al eliminar el combo.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -101,17 +134,28 @@ export default function CombosManager({ combos, setCombos }) {
                 {c.nombre}
               </p>
             </div>
-            <button
-              onClick={() => setEditingCombo(c)}
-              className="p-3 text-[#e37b00] hover:bg-white/5 rounded-xl"
-            >
-              <Edit3 size={20} />
-            </button>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setEditingCombo(c)}
+                className="p-3 text-[#e37b00] hover:bg-white/5 rounded-xl transition-colors"
+              >
+                <Edit3 size={20} />
+              </button>
+
+              {/* BOTÓN DE BORRAR */}
+              <button
+                onClick={() => setComboToDelete(c)}
+                className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-colors"
+              >
+                <Trash2 size={20} />
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* MODAL AGREGAR */}
+      {/* MODAL AGREGAR (Sin cambios) */}
       {isAddingCombo && (
         <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex justify-center items-center z-[100] p-4 font-['Dosis']">
           <form
@@ -205,7 +249,7 @@ export default function CombosManager({ combos, setCombos }) {
         </div>
       )}
 
-      {/* MODAL EDITAR */}
+      {/* MODAL EDITAR (Sin cambios) */}
       {editingCombo && (
         <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex justify-center items-center z-[100] p-4 font-['Dosis']">
           <form
@@ -259,6 +303,14 @@ export default function CombosManager({ combos, setCombos }) {
                 />
               </div>
               <input
+                type="text"
+                className="w-full p-4 rounded-2xl bg-black/20 border border-white/10 text-white"
+                value={editingCombo.tag}
+                onChange={(e) =>
+                  setEditingCombo({ ...editingCombo, tag: e.target.value })
+                }
+              />
+              <input
                 type="file"
                 name="foto"
                 className="w-full text-xs text-white/30 p-4 border border-dashed border-white/10 rounded-2xl"
@@ -281,6 +333,40 @@ export default function CombosManager({ combos, setCombos }) {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* --- MODAL DE CONFIRMACIÓN PARA BORRAR --- */}
+      {comboToDelete && (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex justify-center items-center z-[110] p-4 font-['Dosis']">
+          <div className="bg-[#681104] p-8 rounded-[3rem] border-2 border-red-500 max-w-sm w-full text-center animate-in zoom-in duration-300">
+            <AlertTriangle className="text-red-500 w-16 h-16 mx-auto mb-4" />
+            <h3 className="text-red-500 text-2xl font-black uppercase italic mb-2">
+              ¿Eliminar Combo?
+            </h3>
+            <p className="text-white/80 mb-8">
+              Vas a borrar definitivamente el combo <br />
+              <span className="text-white font-bold">
+                "{comboToDelete.nombre}"
+              </span>
+              .
+            </p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleDeleteCombo}
+                disabled={isDeleting}
+                className="bg-red-500 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-white hover:text-red-500 transition-all disabled:opacity-50"
+              >
+                {isDeleting ? "Eliminando..." : "Sí, eliminar"}
+              </button>
+              <button
+                onClick={() => setComboToDelete(null)}
+                className="text-white/60 font-bold py-2 uppercase text-sm tracking-widest"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

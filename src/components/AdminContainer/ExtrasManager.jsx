@@ -10,10 +10,15 @@ export default function ExtrasManager({ extraPrices, setExtraPrices }) {
     e.preventDefault();
     setUpdatingExtras(true);
     try {
-      await updateDoc(doc(db, "config", "precios_extras"), extraPrices);
-      alert("¡Extras actualizados globalmente!");
+      const extrasRef = doc(db, "config", "precios_extras");
+
+      if (!extraPrices) return;
+
+      await updateDoc(extrasRef, extraPrices);
+      alert("¡Precios actualizados!");
     } catch (error) {
-      alert("Error");
+      console.error("Error de Firebase:", error);
+      alert("Error de permisos o conexión.");
     } finally {
       setUpdatingExtras(false);
     }
@@ -42,15 +47,18 @@ export default function ExtrasManager({ extraPrices, setExtraPrices }) {
                     type="number"
                     className="bg-white/20 p-2 rounded-lg text-[#681104] font-black text-center text-xs outline-none border border-transparent focus:border-[#681104]"
                     value={extraPrices[extra][peso]}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      const numValue = val === "" ? 0 : Number(val);
+
                       setExtraPrices({
                         ...extraPrices,
                         [extra]: {
                           ...extraPrices[extra],
-                          [peso]: Number(e.target.value),
+                          [peso]: numValue,
                         },
-                      })
-                    }
+                      });
+                    }}
                   />
                 </div>
               ))}
