@@ -1,13 +1,24 @@
 import { useState } from "react";
 import { db } from "../../data/firebase";
-import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
-import { Plus, Edit3 } from "lucide-react";
+import {
+  collection,
+  addDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore"; // Importamos deleteDoc
+import { Plus, Edit3, Trash2, AlertTriangle } from "lucide-react"; // Importamos Trash2 y AlertTriangle
 import { uploadToCloudinary } from "./adminUtils";
 
 export default function BudinesManager({ products, setProducts }) {
   const [editingProduct, setEditingProduct] = useState(null);
   const [isAddingProduct, setIsAddingProduct] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  // --- ESTADOS PARA LA ELIMINACIÓN ---
+  const [productToDelete, setProductToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const [newProduct, setNewProduct] = useState({
     nombre: "",
     precios: { "250gr": 0, "300gr": 0, "500gr": 0 },
@@ -78,6 +89,23 @@ export default function BudinesManager({ products, setProducts }) {
     }
   };
 
+  // --- LÓGICA DE ELIMINACIÓN ---
+  const handleDeleteProduct = async () => {
+    if (!productToDelete) return;
+    setIsDeleting(true);
+    try {
+      await deleteDoc(doc(db, "products", productToDelete.id));
+      setProducts(products.filter((p) => p.id !== productToDelete.id));
+      setProductToDelete(null);
+      alert("Budín eliminado con éxito.");
+    } catch (error) {
+      console.error(error);
+      alert("Error al eliminar el budín.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div className="bg-black/20 p-6 rounded-[2.5rem] border border-white/5 shadow-xl">
       <div className="flex justify-between items-center mb-6">
@@ -108,12 +136,23 @@ export default function BudinesManager({ products, setProducts }) {
                 {p.nombre}
               </p>
             </div>
-            <button
-              onClick={() => setEditingProduct(p)}
-              className="p-3 text-[#e37b00] hover:bg-white/5 rounded-xl"
-            >
-              <Edit3 size={20} />
-            </button>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setEditingProduct(p)}
+                className="p-3 text-[#e37b00] hover:bg-white/5 rounded-xl transition-colors"
+              >
+                <Edit3 size={20} />
+              </button>
+
+              {/* BOTÓN DE BORRAR */}
+              <button
+                onClick={() => setProductToDelete(p)}
+                className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-colors"
+              >
+                <Trash2 size={20} />
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -251,6 +290,40 @@ export default function BudinesManager({ products, setProducts }) {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* --- MODAL DE CONFIRMACIÓN PARA BORRAR --- */}
+      {productToDelete && (
+        <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex justify-center items-center z-[110] p-4 font-['Dosis']">
+          <div className="bg-[#681104] p-8 rounded-[3rem] border-2 border-red-500 max-w-sm w-full text-center animate-in zoom-in duration-300">
+            <AlertTriangle className="text-red-500 w-16 h-16 mx-auto mb-4" />
+            <h3 className="text-red-500 text-2xl font-black uppercase italic mb-2">
+              ¿Eliminar Budín?
+            </h3>
+            <p className="text-white/80 mb-8">
+              Vas a borrar definitivamente el budín <br />
+              <span className="text-white font-bold">
+                "{productToDelete.nombre}"
+              </span>
+              .
+            </p>
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={handleDeleteProduct}
+                disabled={isDeleting}
+                className="bg-red-500 text-white font-black py-4 rounded-2xl uppercase tracking-widest hover:bg-white hover:text-red-500 transition-all disabled:opacity-50"
+              >
+                {isDeleting ? "Eliminando..." : "Sí, eliminar"}
+              </button>
+              <button
+                onClick={() => setProductToDelete(null)}
+                className="text-white/60 font-bold py-2 uppercase text-sm tracking-widest"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
